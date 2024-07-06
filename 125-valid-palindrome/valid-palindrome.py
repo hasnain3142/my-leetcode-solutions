@@ -7,11 +7,12 @@ class Solution:
         
         left, right = 0, len(s)-1
         while right > left:
-            print(left, right, s[left], s[right])
-            while not alphanum(s[left]) and right > left:
+            if not alphanum(s[left]): 
                 left += 1
-            while not alphanum(s[right]) and right > left:
+                continue
+            if not alphanum(s[right]):
                 right -= 1
+                continue
             if s[right].lower() != s[left].lower():
                 return False
             left += 1
