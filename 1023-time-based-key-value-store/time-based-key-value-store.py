@@ -7,25 +7,19 @@ class TimeMap:
         self.time_dict[key].append((timestamp, value))
         
     def get(self, key: str, timestamp: int) -> str:
-        values = self.time_dict.get(key, "")
+        res = ""
+        values = self.time_dict.get(key, [])
         left = 0
         right = len(values) - 1
-        closest_timestamp = 0
-        closest_index = 0
         
         while left <= right:
             mid = left + (right - left) // 2
-            if values[mid][0] == timestamp:
-                return values[mid][1]
-            if values[mid][0] < timestamp:
-                if values[mid][0] > closest_timestamp:
-                    closest_timestamp = values[mid][0]
-                    closest_index = mid
+            if values[mid][0] <= timestamp:
+                res = values[mid][1]
                 left = mid + 1
             else:
                 right = mid - 1
-                
-        return "" if not values or not closest_timestamp else values[closest_index][1]
+        return res
         
 
 
